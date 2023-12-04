@@ -1,7 +1,7 @@
 from flask import render_template
 import subprocess
 
-def os_page(request, app):
+def os_page(request):
     hostname = request.values.get('hostname')
 
     if hostname is None:

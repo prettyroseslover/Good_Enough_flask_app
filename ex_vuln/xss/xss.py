@@ -1,7 +1,7 @@
 from flask import render_template
 from models import Books
 
-def xss_page(request, app):
+def xss_page(request):
     books = Books.query
     search = request.args.get('search')
     if search:

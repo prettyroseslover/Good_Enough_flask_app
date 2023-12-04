@@ -1,11 +1,11 @@
 from flask import render_template
 from models import Users
 
-def sqli_page(request, app):
+def sqli_page():
     return render_template('sqli.html', user=None)
 
 
-def sqli_api(request, app):
+def sqli_api(request):
     form = request.form
 
     username = form.get('username')

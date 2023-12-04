@@ -4,7 +4,7 @@ from flask_limiter.util import get_remote_address
 from flask_login import LoginManager, login_required
 
 from database import db
-from models import Users, Books
+from models import Users
 import os
 
 from ex_vuln.xss.xss import xss_page
@@ -40,7 +40,7 @@ db.init_app(app)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'idor'
 
 
 @login_manager.user_loader
@@ -53,51 +53,53 @@ def load_user(user_id):
 def home():
     return render_template('home.html')
 
+
 # ex XSS
 @app.route("/xss")
 def xss():
-    return xss_page(request, app)
+    return xss_page(request)
 
 
 # ex IDOR
 @app.route('/idor', methods=['GET', 'POST'])
 def idor():
     if request.method == 'GET':
-        return idor_page(request, app)
+        return idor_page()
 
-    return idor_api(request, app)
+    return idor_api(request)
+
 
 @app.route('/idor_profile', methods=['GET'])
 @login_required
 def idor_profile():
-    return idor_next_page(request, app)
+    return idor_next_page()
+
 
 @app.route('/logout')
 @login_required
 def logout():
-    return idor_logout(request, app)
+    return idor_logout()
 
 
 # ex SQLI
 @app.route('/sqli', methods=['GET', 'POST'])
 def sqli():
     if request.method == 'GET':
-        return sqli_page(request, app)
+        return sqli_page()
 
-    return sqli_api(request, app)
+    return sqli_api(request)
 
 
 # ex OS command injection
 @app.route('/os', methods=['GET'])
 def os_injection():
-    return os_page(request, app)
-
+    return os_page(request)
 
 
 # ex Path Traversal
 @app.route('/pathtraversal', methods=['GET'])
 def path_traversal():
-    return path_traversal_page(request, app)
+    return path_traversal_page()
 
 
 @app.route('/pathtraversalimg', methods=['GET'])
@@ -110,9 +112,9 @@ def path_traversal_img():
 @limiter.limit("5/minute")
 def brute_force():
     if request.method == 'GET':
-        return brute_page(request, app)
+        return brute_page()
 
-    return brute_api(request, app)
+    return brute_api(request)
 
 if __name__ == "__main__":
     app.run(debug=True)

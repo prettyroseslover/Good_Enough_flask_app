@@ -1,7 +1,7 @@
 from flask import render_template, send_file, make_response
 import os
 
-def path_traversal_page(request, app):
+def path_traversal_page():
     return render_template("pathtraversal.html")
 
 def path_traversal_image(request, app):

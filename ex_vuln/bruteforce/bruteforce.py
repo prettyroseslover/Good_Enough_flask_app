@@ -1,11 +1,11 @@
 from flask import render_template, make_response
 from models import Users
 
-def brute_page(request, app):
+def brute_page():
     return make_response(render_template('bruteforce.html', user=None), 404)
 
 
-def brute_api(request, app):
+def brute_api(request):
     form = request.form
 
     username = form.get('username')

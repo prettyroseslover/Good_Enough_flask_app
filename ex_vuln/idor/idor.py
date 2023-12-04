@@ -2,10 +2,10 @@ from flask import render_template, redirect, url_for
 from flask_login import current_user, login_user, logout_user
 from models import Users
 
-def idor_page(request, app):
+def idor_page():
     return render_template('idor.html', error=False)
 
-def idor_api(request, app):
+def idor_api(request):
     if current_user.is_authenticated:
         return redirect(url_for('idor_profile'))
     
@@ -22,12 +22,12 @@ def idor_api(request, app):
         return redirect(url_for('idor'))
 
 
-def idor_next_page(request, app):
+def idor_next_page():
 
     user = Users.query.get_or_404(current_user.id)
 
     return render_template('idor_profile.html', user=user.username)
 
-def idor_logout(request, app):
+def idor_logout():
     logout_user()
     return redirect(url_for('idor'))
