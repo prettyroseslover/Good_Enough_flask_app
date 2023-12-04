@@ -7,6 +7,8 @@ from models import Users, Books
 import os
 
 from ex_vuln.xss.xss import xss_page
+from ex_vuln.sqli.sqli import sqli_page, sqli_api
+from ex_vuln.osci.osci import os_page
 from ex_vuln.pathtrav.pathtrav import path_traversal_page, path_traversal_image
 from ex_vuln.bruteforce.bruteforce import brute_page, brute_api
 
@@ -42,7 +44,24 @@ def home():
 def xss():
     return xss_page(request, app)
 
-#Path Traversal
+
+# ex SQLI
+@app.route('/sqli', methods=['GET', 'POST'])
+def sqli():
+    if request.method == 'GET':
+        return sqli_page(request, app)
+
+    return sqli_api(request, app)
+
+
+# ex OS command injection
+@app.route('/os', methods=['GET'])
+def os_injection():
+    return os_page(request, app)
+
+
+
+# ex Path Traversal
 @app.route('/pathtraversal', methods=['GET'])
 def path_traversal():
     return path_traversal_page(request, app)
@@ -53,7 +72,7 @@ def path_traversal_img():
     return path_traversal_image(request, app)
 
 
-#Brute Force
+# ex Brute Force
 @app.route('/bruteforce', methods=['GET', 'POST'])
 @limiter.limit("5/minute")
 def brute_force():

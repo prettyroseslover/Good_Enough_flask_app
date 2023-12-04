@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+ex SQLI
+
+{% endblock %}
+
+{% block body %}
+
+
+<div class="block" style="margin:50px;">
+  <form action="/sqli" method="post" style="max-width: 300px;">
+    <div class="field">
+      <label class="label">Имя пользователя</label>
+      <div class="control">
+        <input class="input" name="username" type="text" placeholder="Имя пользователя" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Пароль</label>
+      <div class="control">
+        <input class="input" name="password" type="password" placeholder="********" required>
+      </div>
+    </div>
+    
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Войти</button>
+      </div>
+    </div>
+    {% if user == True %}
+      <div class="notification is-success">
+        Вы успешно вошли!
+      </div>
+    {% elif user == False %}
+      <div class="notification is-danger">
+        Неверные логин или пароль.
+      </div>
+    {% elif user == None %}
+    {% endif %}
+  </form>
+  
+</div>
+
+{% endblock %}
