@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+ex Brute Force
+
+{% endblock %}
+
+{% block body %}
+
+{% if user is none %}
+          
+<h3 style="margin:50px;"> Вы еще не в системе! </h3>
+
+          <div class="block" style="margin:50px;">
+            <form action="/bruteforce" method="post" style="max-width: 300px;">
+              <div class="field">
+                <label class="label">Имя пользователя</label>
+                <div class="control">
+                  <input class="input" name="username" type="text" placeholder="Имя пользователя" required>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Пароль</label>
+                <div class="control">
+                  <input class="input" name="password" type="password" placeholder="********" required>
+                </div>
+              </div>
+              
+              <div class="field is-grouped">
+                <div class="control">
+                  <button class="button is-link">Войти</button>
+                </div>
+              </div>
+            </form>
+            
+          </div>
+          
+    {% else %}
+    <h1 class="display-4" align="center">Привет, {{ user }}!!!</h1>
+    {% endif %}
+
+{% endblock %}
