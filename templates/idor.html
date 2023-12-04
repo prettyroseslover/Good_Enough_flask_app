@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}
+
+ex IDOR
+
+{% endblock %}
+
+{% block body %}
+
+{% if error %}
+
+<h2 align="center"> Неверный логин или пароль. Попробуй еще раз</h2>
+
+{% endif %}
+
+<div class="block">
+  <pre>
+    Попробуй зайти под кредами:
+      Username: prettyroseslover
+      Password: parola
+  </pre>
+</div>
+
+<div class="block" style="margin:50px;">
+  <form action="/idor" method="post" style="max-width: 300px;">
+    <div class="field">
+      <label class="label">Имя пользователя</label>
+      <div class="control">
+        <input class="input" name="username" type="text" placeholder="username" required>
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Пароль</label>
+      <div class="control">
+        <input class="input" name="password" type="password" placeholder="********" required>
+      </div>
+    </div>
+    
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link">Войти</button>
+      </div>
+    </div>
+  </form>
+  
+</div>
+
+
+{% endblock %}
